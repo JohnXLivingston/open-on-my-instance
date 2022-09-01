@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <ul saved_instances>
+    </ul>
+    <form instance_form>
+      <label>
+        What is your instance?
+        <input type="url" list="instances">
+        <datalist id="instances">
+          <option value="https://videos.globenet.org"></option>
+          <option value="https://framatube.org"></option>
+        </datalist>
+      </label>
+    </form>
+    <script>
+      import('./lib/index.js').then((module) => {
+        module.initOpenOnMyInstance()
+      })
+    </script>
+  </body>
+</html>
