@@ -1,8 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-interface Window {
-  initModal: () => Promise<void>
-}
-
 async function getSavedIntances (): Promise<string[]> {
   try {
     const json: string = window.localStorage.getItem('open-on-my-instance-saved-instances') ?? '[]'
@@ -37,7 +32,7 @@ async function saveInstance (url: string): Promise<void> {
   window.localStorage.setItem('open-on-my-instance-saved-instances', json)
 }
 
-window.initModal = async function initModal (): Promise<void> {
+async function initOpenOnMyInstance (): Promise<void> {
   console.debug('Entering in initModal...')
   const instanceFormContainer: HTMLFormElement | null = document.querySelector('[instance_form]')
   const savedInstancesContainer: HTMLUListElement | null = document.querySelector('[saved_instances]')
@@ -58,4 +53,8 @@ window.initModal = async function initModal (): Promise<void> {
   }
 
   await refreshSavedInstances(savedInstancesContainer)
+}
+
+export {
+  initOpenOnMyInstance
 }
