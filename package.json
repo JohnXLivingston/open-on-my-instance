@@ -1,0 +1,33 @@
+{
+  "name": "open-on-my-instance",
+  "version": "0.0.1",
+  "description": "Utilitary package for peertube-plugin-open-on-my-instance. Provides a framework to generate a webpage to choose a peertube instance to open a video.",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [ "lib" ],
+  "scripts": {
+    "prepublish": "tsc",
+    "build": "tsc",
+    "test": "eslint --ext .ts --ext .js ."
+  },
+  "repository": "github:JohnXLivingston/open-on-my-instance",
+  "keywords": [
+    "peertube"
+  ],
+  "author": {
+    "name": "John Livingston",
+    "url": "https://github.com/JohnXLivingston"
+  },
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/JohnXLivingston/open-on-my-instance/issues"
+  },
+  "homepage": "https://github.com/JohnXLivingston/open-on-my-instance#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.33.0",
+    "@typescript-eslint/parser": "^5.33.0",
+    "eslint": "^8.21.0",
+    "eslint-config-standard-with-typescript": "^22.0.0",
+    "typescript": "^4.7.4"
+  }
+}
