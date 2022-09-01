@@ -8,10 +8,12 @@
     "lib"
   ],
   "scripts": {
+    "clean": "rm -rf ./lib/*",
     "prepublish": "tsc",
-    "build": "tsc",
+    "build:tsc": "tsc",
+    "build": "npm-run-all -s clean build:tsc",
     "dev": "npm-run-all -s build -p watch start",
-    "start": "live-server test --port=1312 --no-browser --no-css-inject --wait=1000 --mount=/lib:lib",
+    "start": "live-server test --port=1312 --no-browser --no-css-inject --wait=1000 --mount=/lib:lib --mount=/src:src",
     "watch": "watch 'npm run build' src/",
     "test": "eslint --ext .ts --ext .js ."
   },
