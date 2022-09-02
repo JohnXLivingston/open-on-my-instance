@@ -1,7 +1,7 @@
-import { App } from './utils/app.js'
+import { App, AppOptions } from './utils/app.js'
 
-async function init (container: HTMLElement): Promise<void> {
-  const app = new App(container)
+async function init (container: HTMLElement, options?: AppOptions): Promise<void> {
+  const app = new App(container, options)
   await app.render()
 }
 

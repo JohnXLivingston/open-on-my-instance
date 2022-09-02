@@ -1,13 +1,14 @@
 import { Search, SavedInstances } from '../widget/index.js'
 
+interface AppOptions {
+  prefix?: string // prefix for HTML ids
+}
+
 class App {
-  public readonly container: HTMLElement
   public search?: Search
   public savedInstances?: SavedInstances
 
-  constructor (container: HTMLElement) {
-    this.container = container
-  }
+  constructor (public readonly container: HTMLElement, public options: AppOptions = {}) {}
 
   async render (): Promise<void> {
     const promises: Array<Promise<any>> = []
@@ -27,5 +28,6 @@ class App {
 }
 
 export {
-  App
+  App,
+  AppOptions
 }

@@ -31,7 +31,7 @@ class Search {
 
     if (!this.dataList) {
       this.dataList = document.createElement('datalist')
-      this.dataList.setAttribute('id', 'instances')
+      this.dataList.setAttribute('id', (this.app.options.prefix ?? '') + 'instances')
       this.label.append(this.dataList)
     }
 

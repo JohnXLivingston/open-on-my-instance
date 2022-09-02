@@ -6,7 +6,12 @@
     <div container></div>
     <script>
       import('./lib/index.js').then((module) => {
-        module.init(document.querySelector('div[container]'))
+        module.init(
+          document.querySelector('div[container]'),
+          {
+            prefix: 'oomi-'
+          }
+        )
       })
     </script>
   </body>
