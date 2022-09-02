@@ -5,17 +5,21 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
-    "lib"
+    "lib",
+    "assets"
   ],
   "scripts": {
     "clean": "rm -rf ./lib/*",
     "prepublish": "tsc",
     "build:tsc": "tsc",
-    "build": "npm-run-all -s clean build:tsc",
+    "build:styles": "sass src/scss:assets/css",
+    "build": "npm-run-all -s clean -p build:tsc build:styles",
     "dev": "npm-run-all -s build -p watch start",
-    "start": "live-server test --port=1312 --no-browser --no-css-inject --wait=1000 --mount=/lib:lib --mount=/src:src",
+    "start": "live-server test --port=1312 --no-browser --no-css-inject --wait=1000 --mount=/lib:lib --mount=/src:src --mount=/assets:assets",
     "watch": "watch 'npm run build' src/",
-    "test": "eslint --ext .ts --ext .js ."
+    "lint:tsc": "eslint --ext .ts --ext .js .",
+    "lint:styles": "stylelint 'src/scss/**/*.scss'",
+    "test": "npm-run-all -p lint:tsc lint:styles"
   },
   "repository": "github:JohnXLivingston/open-on-my-instance",
   "keywords": [
@@ -37,6 +41,10 @@
     "eslint-config-standard-with-typescript": "^22.0.0",
     "live-server": "^1.2.2",
     "npm-run-all": "^4.1.5",
+    "sass": "^1.54.8",
+    "stylelint": "^14.11.0",
+    "stylelint-config-recommended-scss": "^7.0.0",
+    "stylelint-config-standard-scss": "^5.0.0",
     "typescript": "^4.7.4",
     "watch": "^1.0.2"
   }

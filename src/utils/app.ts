@@ -8,7 +8,9 @@ class App {
   public search?: Search
   public savedInstances?: SavedInstances
 
-  constructor (public readonly container: HTMLElement, public options: AppOptions = {}) {}
+  constructor (public readonly container: HTMLElement, public options: AppOptions = {}) {
+    container.classList.add('oomi-container')
+  }
 
   async render (): Promise<void> {
     const promises: Array<Promise<any>> = []
