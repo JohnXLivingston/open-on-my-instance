@@ -17,7 +17,7 @@ class App {
     }
     promises.push(this.savedInstances.render())
 
-    Promise.all(promises)
+    await Promise.all(promises)
 
     if (!this.search) {
       this.search = new Search(this)
