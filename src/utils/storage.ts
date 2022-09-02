@@ -1,26 +1,55 @@
-async function savedInstances (): Promise<string[]> {
-  try {
-    const json: string = window.localStorage.getItem('open-on-my-instance-saved-instances') ?? '[]'
-    const instances = JSON.parse(json)
-    if (Array.isArray(instances)) {
-      return instances
-    }
-  } catch {}
-  return []
-}
+import type { App } from './app.js'
+import type { InstanceInfos } from './instance.js'
 
-async function saveInstance (url: string): Promise<void> {
-  let json: string = window.localStorage.getItem('open-on-my-instance-saved-instances') ?? '[]'
-  const instances: string[] = JSON.parse(json)
-  if (instances.indexOf(url) >= 0) {
-    return
+let storage: Storage
+
+class Storage {
+  private readonly prefix: string
+  private readonly savedInstancesKey: string
+
+  constructor (prefix?: string) {
+    this.prefix = prefix ?? 'oomi-'
+    this.savedInstancesKey = this.prefix + 'saved-instances'
   }
-  instances.push(url)
-  json = JSON.stringify(instances.sort())
-  window.localStorage.setItem('open-on-my-instance-saved-instances', json)
+
+  static singleton (app: App): Storage {
+    if (!storage) {
+      storage = new Storage(app.options.prefix)
+    }
+    return storage
+  }
+
+  public async savedInstances (): Promise<InstanceInfos[]> {
+    try {
+      const json: string = window.localStorage.getItem(this.savedInstancesKey) ?? '[]'
+      const instances = JSON.parse(json)
+      if (Array.isArray(instances)) {
+        return instances
+      }
+    } catch {}
+    return []
+  }
+
+  public async saveInstance (instance: InstanceInfos): Promise<void> {
+    let json: string = window.localStorage.getItem(this.savedInstancesKey) ?? '[]'
+    let instances: InstanceInfos[] = JSON.parse(json)
+    // filtering to remove the instance if already present (so we can update saved instances infos)
+    instances = instances.filter((i) => i.url !== instance.url)
+    // Adding the new instance in first position.
+    instances.unshift(instance)
+    json = JSON.stringify(instances)
+    window.localStorage.setItem(this.savedInstancesKey, json)
+  }
+
+  public async removeInstance (url: string): Promise<void> {
+    let json: string = window.localStorage.getItem(this.savedInstancesKey) ?? '[]'
+    let instances: InstanceInfos[] = JSON.parse(json)
+    instances = instances.filter(i => i.url !== url)
+    json = JSON.stringify(instances)
+    window.localStorage.setItem(this.savedInstancesKey, json)
+  }
 }
 
 export {
-  savedInstances,
-  saveInstance
+  Storage
 }

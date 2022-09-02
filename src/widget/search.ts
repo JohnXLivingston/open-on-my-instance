@@ -1,7 +1,7 @@
 import type { App } from '../utils/app.js'
 import { list as listInstances } from '../utils/instances.js'
-import { saveInstance } from '../utils/storage.js'
-import { validate } from '../utils/url.js'
+import { Storage } from '../utils/storage.js'
+import { getInstanceInfos } from '../utils/instance.js'
 
 class Search {
   private readonly container: HTMLFormElement
@@ -11,6 +11,7 @@ class Search {
 
   constructor (public app: App) {
     this.container = document.createElement('form')
+    this.container.classList.add('oomi-search')
     this.app.container.append(this.container)
   }
 
@@ -53,10 +54,14 @@ class Search {
 
   private async addInstance (): Promise<void> {
     const url = this.input?.value
-    if (!url || !await validate(url)) {
+    if (!url) {
       return
     }
-    await saveInstance(url)
+    const instanceInfos = await getInstanceInfos(url)
+    if (!instanceInfos) {
+      return
+    }
+    await Storage.singleton(this.app).saveInstance(instanceInfos)
     await this.app.savedInstances?.render()
   }
 }

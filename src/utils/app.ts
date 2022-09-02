@@ -1,7 +1,7 @@
 import { Search, SavedInstances } from '../widget/index.js'
 
 interface AppOptions {
-  prefix?: string // prefix for HTML ids
+  prefix?: string // prefix for HTML ids and storage keys
 }
 
 class App {
@@ -23,6 +23,7 @@ class App {
     await Promise.all(promises)
 
     if (!this.search) {
+      this.container.append(document.createElement('hr'))
       this.search = new Search(this)
     }
     promises.push(this.search.render())

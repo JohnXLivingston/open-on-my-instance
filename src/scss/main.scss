@@ -1,1 +1,39 @@
-.oomi-container {}
+$oomi-color: black;
+$oomi-background-color: white;
+$oomi-border-color: black;
+$oomi-button-color: white;
+$oomi-button-background-color: orange;
+
+.oomi-container {
+  .oomi-saved-instances {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+
+    & > * {
+      border: 1px solid $oomi-border-color;
+      border-radius: 5px;
+      margin: 20px;
+      padding: 20px;
+    }
+
+    .oomi-remove {
+      background-color: $oomi-button-background-color;
+      border: none;
+      border-radius: 5px;
+      color: $oomi-button-color;
+      cursor: pointer;
+      float: right;
+      padding: 5px;
+    }
+
+    .oomi-instance-info {
+      display: flex;
+      flex-direction: column;
+
+      & > * {
+        align-self: center;
+      }
+    }
+  }
+}
