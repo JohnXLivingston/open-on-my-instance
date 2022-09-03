@@ -4,7 +4,7 @@ import type { InstanceInfos } from './instance.js'
 let storage: Storage
 
 class Storage {
-  private readonly prefix: string
+  public readonly prefix: string
   private readonly savedInstancesKey: string
 
   constructor (prefix?: string) {
@@ -13,7 +13,7 @@ class Storage {
   }
 
   static singleton (app: App): Storage {
-    if (!storage) {
+    if (!storage || storage.prefix !== (app.options.prefix ?? 'oomi-')) {
       storage = new Storage(app.options.prefix)
     }
     return storage
