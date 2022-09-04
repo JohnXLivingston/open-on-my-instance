@@ -1,6 +1,7 @@
 interface InstanceInfos {
   name: string
   url: string
+  type: 'peertube'
 }
 
 async function getInstanceInfos (url: string): Promise<InstanceInfos | false> {
@@ -10,7 +11,8 @@ async function getInstanceInfos (url: string): Promise<InstanceInfos | false> {
   // TODO: return correct infos
   return {
     url,
-    name: url.replace(/^https?:\/\//, '')
+    name: url.replace(/^https?:\/\//, ''),
+    type: 'peertube'
   }
 }
 
