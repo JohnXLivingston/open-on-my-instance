@@ -9,7 +9,7 @@
     "assets"
   ],
   "scripts": {
-    "clean": "rm -rf ./lib/*",
+    "clean": "rm -rf ./lib/* ./assets/css/*",
     "prepublish": "tsc",
     "build:tsc": "tsc",
     "build:styles": "sass src/scss:assets/css",

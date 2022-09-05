@@ -1,5 +1,6 @@
 import type { App } from '../utils/app.js'
 import { Storage } from '../utils/storage.js'
+import { readParams } from '../utils/video.js'
 
 class SavedInstances {
   private readonly container: HTMLElement
@@ -13,6 +14,8 @@ class SavedInstances {
   async render (): Promise<void> {
     const instances = await Storage.singleton(this.app).savedInstances()
     this.container.innerHTML = ''
+
+    const videoInfos = readParams()
     for (const instance of instances) {
       const li = document.createElement('li')
 
@@ -34,7 +37,15 @@ class SavedInstances {
       infos.append(name)
 
       const a = document.createElement('a')
-      a.setAttribute('href', instance.url) // TODO: link to the video
+      let url = instance.url
+      if (videoInfos) {
+        // Using an undocumented Peertube functionality: lazy loading.
+        // https://instance.tld/search/lazy-load-video;url=https:%2F%2Forigininstance.tld%2Fvideos%2Fwatch%2Fb14ba404-..
+        const urlObject = new URL('/search/lazy-load-video', instance.url)
+        urlObject.searchParams.append('url', 'https://' + videoInfos.host + '/videos/watch/' + videoInfos.uuid)
+        url = urlObject.toString().replace(/\?/, ';')
+      }
+      a.setAttribute('href', url)
       a.setAttribute('target', '_top')
       a.innerText = instance.url
       li.append(a)
