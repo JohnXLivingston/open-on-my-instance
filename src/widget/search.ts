@@ -43,12 +43,15 @@ class Search {
       this.label.append(this.input)
     }
 
-    const instances = await listInstances()
     this.dataList.innerHTML = ''
-    for (const instance of instances) {
-      const option = document.createElement('option')
-      option.setAttribute('value', instance)
-      this.dataList.append(option)
+    if (this.app.options.instancesAPI) {
+      listInstances(this.app.options.instancesAPI).then(instances => {
+        for (const instance of instances) {
+          const option = document.createElement('option')
+          option.setAttribute('value', instance)
+          this.dataList?.append(option)
+        }
+      }, console.error)
     }
   }
 

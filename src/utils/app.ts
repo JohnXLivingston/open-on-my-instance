@@ -1,7 +1,13 @@
 import { Search, SavedInstances } from '../widget/index.js'
 
+interface AppApiOptions {
+  listEndpoint: string
+  count?: number
+}
+
 interface AppOptions {
   prefix?: string // prefix for HTML ids and storage keys
+  instancesAPI?: AppApiOptions
 }
 
 class App {
@@ -32,5 +38,6 @@ class App {
 
 export {
   App,
-  AppOptions
+  AppOptions,
+  AppApiOptions
 }
